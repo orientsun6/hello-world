@@ -1,0 +1,27 @@
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: orientsun6-deployment
+spec:
+  selector:
+    matchLabels:
+      app: orientsun6-devops-project
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
+  template:
+    metadata:
+      labels:
+        app: orientsun6-devops-project
+    spec:
+      containers:
+      - name: orientsun6-devops-project
+        image: orientsun6/simple-devops-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

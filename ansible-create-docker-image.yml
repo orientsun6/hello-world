@@ -1,0 +1,19 @@
+
+---
+- hosts: all
+
+  tasks:
+    - name: Create docker image using war file
+      command: docker build -t simple-devops-image:latest .
+      args:
+        chdir: /opt/docker
+
+    - name: Create tag to image
+      command: docker tag simple-devops-image orientsun6/simple-devops-image
+
+    - name: Push image to dockerHub
+      command: docker push orientsun6/simple-devops-image
+
+    - name: Remove old docker images
+      command: docker rmi simple-devops-image:latest orientsun6/simple-devops-image
+      ignore_errors: yes
